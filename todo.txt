@@ -1,0 +1,96 @@
+so we need to solve this problem: managing tasks
+for this, we are going to create a rest api.
+our app should be able to manage tasks, this refers to: adding tasks, deleting, editing description or status, list the tasks.
+inca devreme de auth si roluri, dar pe urma va fi
+
+
+ok, lets define our data model, so we know what we need to work with
+
+we need:
+id, description, status(Todo, doing, done), title, priority(low, medium, high), deadline, createdAt, updatedAt
+
+now lets discuss about the api contract or rules of communication
+
+we have 2 key rules
+1. path is a noun aka a resource
+2. action is a http method ( get, post, patch, delete, etc.. )
+
+1. create a task
+POST /tasks
+
+request payload:
+
+{
+  "title": "Finish lab report",
+  "description": "Lab 4, update diagrams",
+  "priority": "high",
+  "deadline": "2026-01-10"
+}
+
+response(201) created:
+{
+  "id": 1,
+  "title": "Finish lab report",
+  "description": "Lab 4, update diagrams",
+  "status": "Todo",
+  "priority": "high",
+  "deadline": "2026-01-10",
+  "createdAt": "2026-01-07T19:20:00",
+  "updatedAt": "2026-01-07T19:20:00"
+}
+
+2. list tasks
+
+GET /tasks
+
+query parameters: status=todo, priority=high, q = report,
+
+response: 200 OK
+[
+  { "id": 1, "title": "Finish lab report", "status": "TODO", "priority": "HIGH" },
+  { "id": 2, "title": "Prepare slides", "status": "IN_PROGRESS", "priority": "MEDIUM" }
+]
+
+
+3. Get one task by Id
+Get /tasks/{id}
+
+response:
+{
+  "id": 1,
+  "title": "Finish lab report",
+  "description": "Lab 4, update diagrams",
+  "status": "TODO",
+  "priority": "HIGH",
+  "dueDate": "2026-01-10"
+}
+
+
+if not found then 404 not found:
+{ "message": "Task not found" }
+
+
+4. update a task
+we can use either patch or put, but for now i think patch is ok, later we will use both of them
+
+request a payload:
+{ "status": "DONE" }
+
+
+5. delete a task
+
+DELETE /tasks/{id}
+
+response: 204 (no content)
+
+Allowed values
+Status:
+TODO
+ - IN_PROGRESS
+ - DONE
+
+Priority:
+ - LOW
+ - MEDIUM
+ - HIGH
+

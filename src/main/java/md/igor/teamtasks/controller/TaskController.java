@@ -1,8 +1,11 @@
 package md.igor.teamtasks.controller;
 
+import jakarta.validation.Valid;
 import md.igor.teamtasks.dto.request.CreateTaskRequest;
 import md.igor.teamtasks.dto.request.UpdateTaskRequest;
 import md.igor.teamtasks.dto.response.TaskResponse;
+import md.igor.teamtasks.entity.TaskPriority;
+import md.igor.teamtasks.entity.TaskStatus;
 import md.igor.teamtasks.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +22,18 @@ public class TaskController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TaskResponse create(@RequestBody CreateTaskRequest request){
+    public TaskResponse create(@Valid @RequestBody CreateTaskRequest request){
         return taskService.createTask(request);
     }
 
     @GetMapping
-    public List<TaskResponse> getAll(){
-        return taskService.getTasks();
+    public List<TaskResponse> getAll(
+            @RequestParam(required = false) TaskStatus status,
+            @RequestParam(required = false) TaskPriority priority,
+            @RequestParam(required = false) String q){
+
+
+        return taskService.getTasks(status, priority, q);
     }
 
     @GetMapping("/{id}")
@@ -34,7 +42,7 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}")
-    public TaskResponse update(@PathVariable Long id, @RequestBody UpdateTaskRequest request){
+    public TaskResponse update(@PathVariable Long id, @Valid @RequestBody UpdateTaskRequest request){
         return taskService.updateTask(id, request);
     }
 

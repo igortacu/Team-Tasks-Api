@@ -1,17 +1,48 @@
 package md.igor.teamtasks.entity;
 
+import jakarta.persistence.*;
+
 import java.time.Instant;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "tasks")
 public class Task {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 120)
     private String title;
+
+    @Column(columnDefinition = "TEXT", length = 1000)
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TaskStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TaskPriority priority;
+
     private LocalDate deadline;
+
+    @Column(nullable = false, updatable = false)
     private Instant createdAt;
+
+    @Column(nullable = false)
     private Instant updatedAt;
+
+    // entitiy lifecycle callbacks
+    @PrePersist
+    protected void onCreate() {
+        updatedAt = createdAt = Instant.now();
+    }
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = Instant.now();
+    }
 
     public Task(){}
 

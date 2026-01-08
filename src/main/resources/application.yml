@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/teamtasks?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: teamtasks
+    password: teamtasks-password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

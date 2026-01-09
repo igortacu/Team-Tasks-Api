@@ -73,8 +73,8 @@ Content-Type: application/json
 {
   "title": "Finish lab report",
   "description": "Lab 4, update diagrams",
-  "priority": "HIGH",
-  "status": "TODO",
+  "priority": "High",
+  "status": "Todo",
   "deadline": "2026-01-10"
 }
 ```
@@ -85,8 +85,8 @@ Content-Type: application/json
   "id": 1,
   "title": "Finish lab report",
   "description": "Lab 4, update diagrams",
-  "status": "TODO",
-  "priority": "HIGH",
+  "status": "Todo",
+  "priority": "High",
   "deadline": "2026-01-10",
   "createdAt": "2026-01-07T19:20:00Z",
   "updatedAt": "2026-01-07T19:20:00Z"
@@ -100,13 +100,13 @@ GET /tasks
 ```
 
 **Optional Query Parameters:**
-- `status` - Filter by status (TODO, IN_PROGRESS, DONE)
+- `status` - Filter by status (TODO, Doing, DONE)
 - `priority` - Filter by priority (LOW, MEDIUM, HIGH)
 - `q` - Search in title and description (case-insensitive)
 
 **Example:**
 ```http
-GET /tasks?status=TODO&priority=HIGH&q=report
+GET /tasks?status=Todo&priority=High&q=report
 ```
 
 **Response (200 OK):**
@@ -116,8 +116,8 @@ GET /tasks?status=TODO&priority=HIGH&q=report
     "id": 1,
     "title": "Finish lab report",
     "description": "Lab 4, update diagrams",
-    "status": "TODO",
-    "priority": "HIGH",
+    "status": "Todo",
+    "priority": "High",
     "deadline": "2026-01-10",
     "createdAt": "2026-01-07T19:20:00Z",
     "updatedAt": "2026-01-07T19:20:00Z"
@@ -137,8 +137,8 @@ GET /tasks/{id}
   "id": 1,
   "title": "Finish lab report",
   "description": "Lab 4, update diagrams",
-  "status": "TODO",
-  "priority": "HIGH",
+  "status": "Todo",
+  "priority": "High",
   "deadline": "2026-01-10",
   "createdAt": "2026-01-07T19:20:00Z",
   "updatedAt": "2026-01-07T19:20:00Z"
@@ -159,7 +159,7 @@ PATCH /tasks/{id}
 Content-Type: application/json
 
 {
-  "status": "DONE",
+  "status": "Done",
   "description": "Lab 4, updated all diagrams and submitted"
 }
 ```
@@ -170,8 +170,8 @@ Content-Type: application/json
   "id": 1,
   "title": "Finish lab report",
   "description": "Lab 4, updated all diagrams and submitted",
-  "status": "DONE",
-  "priority": "HIGH",
+  "status": "Done",
+  "priority": "High",
   "deadline": "2026-01-10",
   "createdAt": "2026-01-07T19:20:00Z",
   "updatedAt": "2026-01-08T10:30:00Z"
